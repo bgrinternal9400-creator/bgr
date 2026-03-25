@@ -153,7 +153,7 @@ function compressImage(file, quality = 0.7, maxWidth = 1024) {
 // ===== REVIEW =====
 function buildReview() {
   const fields = [
-    ['Ability Number', document.getElementById('abilityNum').value || '—'],
+    ['bility Number', document.getElementById('bilityNum').value || '—'],
     ['Driver Name', document.getElementById('driverName').value || '—'],
     ['Truck Number', document.getElementById('truckNo').value || '—'],
     ['Phone', document.getElementById('phone').value || '—'],
@@ -218,7 +218,7 @@ async function submitTrip() {
 
     const payload = {
       tripId: tripId,
-      abilityNum: document.getElementById('abilityNum').value,
+      bilityNum: document.getElementById('bilityNum').value,
       driverName: document.getElementById('driverName').value,
       truckNo: document.getElementById('truckNo').value,
       phone: document.getElementById('phone').value,
@@ -239,7 +239,7 @@ async function submitTrip() {
       const formData = new URLSearchParams();
       formData.append('action', 'driverSubmit');
       formData.append('tripId', payload.tripId);
-      formData.append('abilityNum', payload.abilityNum);
+      formData.append('bilityNum', payload.bilityNum);
       formData.append('driverName', payload.driverName);
       formData.append('truckNo', payload.truckNo);
       formData.append('phone', payload.phone);
