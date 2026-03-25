@@ -1,5 +1,5 @@
 // ===== CONFIGURATION =====
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbylb_cxvWH_5xhH3u9aDolm4_wn8rczAG1mDDP1sDWeyt8TfmDOVRrpDkDdYZ19QXtj/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxF-TOdFvifDenuzCGUKJfzAK_ZUBc4IHPlARvxLsJI95vAcV0cWrvp8wdnbQ-77tBI/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   // ===== HAMBURGER MENU TOGGLE =====
