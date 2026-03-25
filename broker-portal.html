@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Broker Portal — Bombay Gobindgarh Roadways</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="broker-portal.css">
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><span>BGR</span></div>
+      BOMBAY GOBINDGARH ROADWAYS
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#collaborations">Partners</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#routes">Routes</a>
+      <a href="index.html" class="nav-cta">Back to Home</a>
+    </div>
+    <button class="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- BROKER PORTAL SECTION -->
+<section class="broker-section" id="broker" style="margin-top: 80px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Broker Portal</div>
+      <h2 class="section-title">BROKER SUBMISSION</h2>
+      <p class="section-desc">Secure login followed by trip detail submission</p>
+    </div>
+
+    <!-- LOGIN SCREEN -->
+    <div class="form-container" id="loginContainer">
+      <div class="form-header">
+        <h3>BROKER LOGIN</h3>
+        <p>Access your portal with credentials</p>
+      </div>
+      <div class="form-body">
+        <div class="field-group">
+          <label>Username</label>
+          <input type="text" id="brokerUser" placeholder="Enter username">
+        </div>
+        <div class="field-group">
+          <label>Password</label>
+          <input type="password" id="brokerPass" placeholder="Enter password">
+        </div>
+        <div class="form-nav">
+          <div></div>
+          <button class="btn-primary" id="loginBtn" onclick="brokerLogin()">Login to Portal ▸</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMISSION FORM (Initially Hidden) -->
+    <div class="form-container" id="formContainer" style="display:none;">
+      <div class="form-header">
+        <h3>SUBMIT BROKER DETAILS</h3>
+        <p>Live Timestamp: <span id="liveTime">--</span></p>
+      </div>
+      <div class="form-body">
+        <div class="field-group">
+          <label>Transport Name</label>
+          <input type="text" id="transportName" placeholder="Enter transport name">
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Truck Number</label>
+            <input type="text" id="truckNo" placeholder="e.g. PB 08 AB 1234">
+          </div>
+          <div class="field-group">
+            <label>GR Number</label>
+            <input type="text" id="grNo" placeholder="Enter GR Number">
+          </div>
+        </div>
+        
+        <!-- Photo Uploads -->
+        <div class="field-group">
+          <label>Photo 1 (GR Copy)</label>
+          <div class="upload-zone" id="photo1Zone" onclick="document.getElementById('photo1Input').click()">
+            <div class="upload-icon">📸</div>
+            <p>Click or drag photo here</p>
+            <p class="sub">JPG, PNG — Max 10MB</p>
+          </div>
+          <input type="file" id="photo1Input" accept="image/*" style="display:none" onchange="handleUpload(this, 'photo1Preview')">
+          <div class="upload-preview" id="photo1Preview">
+            <img id="photo1Thumb" src="" alt="Preview">
+            <div class="file-info" id="photo1Info">--</div>
+            <button class="remove-btn" onclick="removeFile('photo1Input','photo1Preview')">✕</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Photo 2 (Loading Photo)</label>
+          <div class="upload-zone" id="photo2Zone" onclick="document.getElementById('photo2Input').click()">
+            <div class="upload-icon">📸</div>
+            <p>Click or drag photo here</p>
+            <p class="sub">JPG, PNG — Max 10MB</p>
+          </div>
+          <input type="file" id="photo2Input" accept="image/*" style="display:none" onchange="handleUpload(this, 'photo2Preview')">
+          <div class="upload-preview" id="photo2Preview">
+            <img id="photo2Thumb" src="" alt="Preview">
+            <div class="file-info" id="photo2Info">--</div>
+            <button class="remove-btn" onclick="removeFile('photo2Input','photo2Preview')">✕</button>
+          </div>
+        </div>
+
+        <div class="live-data">
+          <div class="live-item">
+            <div class="label">GPS Location</div>
+            <div class="value" id="gpsLocation">Fetching...</div>
+          </div>
+          <div class="live-item">
+            <div class="label">Current Time</div>
+            <div class="value" id="currentTime">--</div>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-secondary" onclick="logoutBroker()">← Logout</button>
+          <button class="btn-primary" id="submitBtn" onclick="submitBrokerTrip()">Submit Details ▸</button>
+        </div>
+      </div>
+
+      <!-- Success Screen -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">✓</div>
+        <h3>SUBMITTED SUCCESSFULLY</h3>
+        <p style="color:var(--steel-400); margin-bottom: 8px;">Your broker details have been recorded. ID:</p>
+        <div class="trip-id" id="tripIdDisplay">BGR-B-000000</div>
+        <p style="color:var(--steel-500); font-size: 0.85rem; margin-top: 16px;">
+          Reference ID logged. Keep it for your records.
+        </p>
+        <button class="btn-primary" style="margin-top: 24px;" onclick="resetForm()">New Submission</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="text-align: center; padding-bottom: 40px;">
+      <p>© 2026 Bombay Gobindgarh Roadways. All Rights Reserved.</p>
+      <p>Forged in Steel City 🔩</p>
+    </div>
+  </div>
+</footer>
+
+<script src="broker-portal.js"></script>
+
+</body>
+</html>

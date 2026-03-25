@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driver Portal — Bombay Gobindgarh Roadways</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="driver-details.css">
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><span>BGR</span></div>
+      BOMBAY GOBINDGARH ROADWAYS
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#collaborations">Partners</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#routes">Routes</a>
+      <a href="index.html" class="nav-cta">Back to Home</a>
+    </div>
+    <button class="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- DRIVER SUBMISSION -->
+<section class="driver-section" id="driver" style="margin-top: 80px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Driver Portal</div>
+      <h2 class="section-title">TRIP SUBMISSION</h2>
+      <p class="section-desc">3-step submission: Details → Upload → Review & Submit</p>
+    </div>
+    <div class="form-container" id="formContainer">
+      <div class="form-header">
+        <h3>SUBMIT TRIP PROOF</h3>
+        <p>Live Timestamp: <span id="liveTime">--</span></p>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-step active" data-step="1">
+          <span class="step-num">01</span> Details
+        </div>
+        <div class="progress-step" data-step="2">
+          <span class="step-num">02</span> Upload
+        </div>
+        <div class="progress-step" data-step="3">
+          <span class="step-num">03</span> Review
+        </div>
+      </div>
+      <div class="form-body">
+        <!-- Step 1: Details -->
+        <div class="form-step active" data-step="1">
+          <div class="field-group">
+            <label>Ability Number</label>
+            <input type="text" id="abilityNum" placeholder="Enter Ability Number">
+          </div>
+          <div class="field-group">
+            <label>Driver Name</label>
+            <input type="text" id="driverName" placeholder="Enter full name">
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Truck Number</label>
+              <input type="text" id="truckNo" placeholder="e.g. PB 08 AB 1234">
+            </div>
+            <div class="field-group">
+              <label>Phone Number</label>
+              <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX">
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Route</label>
+            <select id="route">
+              <option value="">Select Route</option>
+              <option>Gobindgarh → Mumbai</option>
+              <option>Gobindgarh → Delhi NCR</option>
+              <option>Gobindgarh → Jaipur</option>
+              <option>Ludhiana → Ahmedabad</option>
+              <option>Chandigarh → Pune</option>
+              <option>Gobindgarh → Kolkata</option>
+              <option>Gobindgarh → Chennai</option>
+              <option>Rajpura → Hyderabad</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Cargo Type</label>
+            <select id="cargoType">
+              <option value="">Select Cargo Type</option>
+              <option>Steel / Alloys</option>
+              <option>FMCG / Beverages</option>
+              <option>Auto Components</option>
+              <option>Food Products</option>
+              <option>Springs / Suspension</option>
+              <option>General Cargo</option>
+            </select>
+          </div>
+          <div class="live-data">
+            <div class="live-item">
+              <div class="label">GPS Location</div>
+              <div class="value" id="gpsLocation">Fetching...</div>
+            </div>
+            <div class="live-item">
+              <div class="label">Current Time</div>
+              <div class="value" id="currentTime">--</div>
+            </div>
+          </div>
+          <div class="form-nav">
+            <div></div>
+            <button class="btn-primary" onclick="goToStep(2)">Next → Upload</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Upload -->
+        <div class="form-step" data-step="2">
+          <div class="field-group">
+            <label>Delivery Photo</label>
+            <div class="upload-zone" id="photoZone" onclick="document.getElementById('photoInput').click()">
+              <div class="upload-icon">📸</div>
+              <p>Click or drag photo here</p>
+              <p class="sub">JPG, PNG — Max 10MB</p>
+            </div>
+            <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handleUpload(this, 'photoPreview')">
+            <div class="upload-preview" id="photoPreview">
+              <img id="photoThumb" src="" alt="Preview">
+              <div class="file-info" id="photoInfo">--</div>
+              <button class="remove-btn" onclick="removeFile('photoInput','photoPreview')">✕</button>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Document 1 (POD / LR Copy)</label>
+            <div class="upload-zone" onclick="document.getElementById('doc1Input').click()">
+              <div class="upload-icon">📄</div>
+              <p>Click or drag document</p>
+              <p class="sub">PDF, JPG, PNG — Max 10MB</p>
+            </div>
+            <input type="file" id="doc1Input" accept="image/*,.pdf" style="display:none" onchange="handleUpload(this, 'doc1Preview')">
+            <div class="upload-preview" id="doc1Preview">
+              <img id="doc1Thumb" src="" alt="Preview">
+              <div class="file-info" id="doc1Info">--</div>
+              <button class="remove-btn" onclick="removeFile('doc1Input','doc1Preview')">✕</button>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Document 2 (Weight Slip / Invoice)</label>
+            <div class="upload-zone" onclick="document.getElementById('doc2Input').click()">
+              <div class="upload-icon">📄</div>
+              <p>Click or drag document</p>
+              <p class="sub">PDF, JPG, PNG — Max 10MB</p>
+            </div>
+            <input type="file" id="doc2Input" accept="image/*,.pdf" style="display:none" onchange="handleUpload(this, 'doc2Preview')">
+            <div class="upload-preview" id="doc2Preview">
+              <img id="doc2Thumb" src="" alt="Preview">
+              <div class="file-info" id="doc2Info">--</div>
+              <button class="remove-btn" onclick="removeFile('doc2Input','doc2Preview')">✕</button>
+            </div>
+          </div>
+          <div class="form-nav">
+            <button class="btn-secondary" onclick="goToStep(1)">← Back</button>
+            <button class="btn-primary" onclick="goToStep(3)">Next → Review</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Review -->
+        <div class="form-step" data-step="3">
+          <div class="review-grid" id="reviewGrid"></div>
+          <div class="declaration">
+            <input type="checkbox" id="declarationCheck">
+            <label for="declarationCheck">
+              I declare that the information submitted above is true and accurate. I confirm the cargo was delivered as per the trip manifest and all uploaded documents are genuine.
+            </label>
+          </div>
+          <div class="form-nav">
+            <button class="btn-secondary" onclick="goToStep(2)">← Back</button>
+            <button class="btn-primary" id="submitBtn" onclick="submitTrip()">Submit Trip Proof ▸</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">✓</div>
+        <h3>TRIP SUBMITTED SUCCESSFULLY</h3>
+        <p style="color:var(--steel-400); margin-bottom: 8px;">Your trip proof has been recorded. Reference ID:</p>
+        <div class="trip-id" id="tripIdDisplay">BGR-000000-00000</div>
+        <p style="color:var(--steel-500); font-size: 0.85rem; margin-top: 16px;">
+          This ID has been logged in our system. Keep it for your records.
+        </p>
+        <button class="btn-primary" style="margin-top: 24px;" onclick="resetForm()">Submit Another Trip</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="text-align: center; padding-bottom: 40px;">
+      <p>© 2026 Bombay Gobindgarh Roadways. All Rights Reserved.</p>
+      <p>Forged in Steel City 🔩</p>
+    </div>
+  </div>
+</footer>
+
+<script src="driver-details.js"></script>
+
+</body>
+</html>
